@@ -5,10 +5,6 @@ import requests
 import urlparse
 from imageGetter import *
 
-###
-# Routing for your application.
-###
-
 @app.route('/')
 def home():
     """Render website's home page."""
@@ -21,41 +17,6 @@ def register():
 @app.route("/api/users/login", methods=["POST"])
 def login():
     pass
-
-@app.route("/api/users/<int:userid>/wishlist", methods=["GET","POST"])
-def wishlist(userid):
-
-    if request.method == "GET":
-        pass
-    elif request.method == "POST":
-        pass
-
-@app.route('/api/thumbnails', methods=["GET"])
-def thumbnails():
-    """API for thumbnails"""
-
-    if request.method == "GET":
-
-        res = {"error": "null", "message": "success", "thumbnails": getImg()}
-
-        response = make_response(jsonify(res))
-        response.headers['Content-Type'] = 'application/json'
-
-        return response
-
-@app.route("/api/users/<int:userid>/wishlist/<int:itemid>", methods=["DELETE"])
-def deleteitem(userid,itemid):
-    pass
-
-###
-# The functions below should be applicable to all Flask apps.
-###
-
-@app.route('/<file_name>.txt')
-def send_text_file(file_name):
-    """Send your static text file."""
-    file_dot_text = file_name + '.txt'
-    return app.send_static_file(file_dot_text)
 
 
 @app.after_request
