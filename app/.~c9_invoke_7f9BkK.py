@@ -58,8 +58,9 @@ class Project(db.Model):
 class Task(db.Model):
     tid = db.Column(db.Integer, primary_key=True)
     pid = db.Column(db.Integer)
-    assignee = db.Column(db.String(80))
-    description = db.Column(db.String(255))
+    name = db.Column(db.String(80))
+    
+    progress = db.Column(db.Integer
     progress = db.Column(db.Integer)
     
     def updateProgress(up):

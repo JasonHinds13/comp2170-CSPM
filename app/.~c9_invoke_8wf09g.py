@@ -52,13 +52,14 @@ class Forum(db.Model):
 class Project(db.Model):
     pid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
-    description = db.Column(db.String(255))
+    description = db.Column(db.String())
     sig = db.Column(db.String(80))
 
 class Task(db.Model):
     tid = db.Column(db.Integer, primary_key=True)
     pid = db.Column(db.Integer)
-    assignee = db.Column(db.String(80))
+    name = db.Column(db.String(80))
+    
     description = db.Column(db.String(255))
     progress = db.Column(db.Integer)
     

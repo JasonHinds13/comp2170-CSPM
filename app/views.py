@@ -1,34 +1,65 @@
 from app import app
-from flask import render_template, request, redirect, url_for, jsonify, make_response
-from bs4 import BeautifulSoup
+from flask import render_template, request, redirect, url_for, jsonify, make_response, session, flash
 import requests
-import urlparse
-from imageGetter import *
+from .forms import *
+from .models import *
 
 @app.route('/')
 def home():
     """Render website's home page."""
     return render_template('home.html')
+    
+@app.route("/createProject", methods=["GET","POST"])
+def createproj():
+    
+    form = ProjectForm()
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            name = form.name.data
+            desc = form.description.data
+            sig = form.sig.data
+            
+            proj = Project(name=name, description=desc, sig=sig)
+            
+    #return render_template()
+    
+@app.route("/createTask", methods=["GET","POST"])
+def createproj():
+    
+    form = ProjectForm()
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            name = form.assignee.data
+            desc = form.description.data
+            
+            task = Task(assignee=name, description=desc, progess=0)
+            
+    #return render_template()
 
-@app.route("/api/users/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     pass
 
-@app.route("/api/users/login", methods=["POST"])
+@app.route("/login", methods=["GET","POST"])
 def login():
-    pass
-
-
-@app.after_request
-def add_header(response):
-    """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to tell the browser not to cache the rendered page.
-    """
-    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-    response.headers['Cache-Control'] = 'public, max-age=0'
-    return response
-
+    form = LoginForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            username = form.username.data
+             
+            session['logged_in'] = True
+            
+            flash('You were logged in')
+            return redirect(url_for('home'))
+    return render_template('login.html', form=form)
+    
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('home'))
 
 @app.errorhandler(404)
 def page_not_found(error):

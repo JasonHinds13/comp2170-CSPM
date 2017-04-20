@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="signinfo">
+        <h2> Sign Up</h2>
+        <form id="signup" action="scripts/main.php" method="post">
+            Account Type: 
+            <select name="acctype">
+        		<option value ="leader">Project Leader</option>
+        		<option value ="member">Project Participant</option>
+        	</select> <br />
+        	First name: <input type = "text" name ="fname" required/> <br/>
+        	Last name: <input type = "text" name ="lname" required/> <br/>
+        	ID number: <input type = "text" name ="id_num" required/> <br/>
+        	Email: <input type="text" name ="email" required> <br/>
+        	Password: <input type ="password" name="password" required/> <br/>
+        	Special Interest Group: 
+        	<select name="sig">
+        		<option value ="web">Web Development</option>
+        		<option value ="robotics">Robotics</option>
+        		<option value ="mobile">Mobile App Development</option>
+        		<option value ="security">Security</option>
+        	</select><br />
+        	<input type="submit" name="signbtn" value="Sign Up"/>
+        </form>
+        </div>
+    </body>
+</html>
