@@ -7,6 +7,7 @@ class SytemUser(db.Model):
     last_name = db.Column(db.String(80))
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
+    utype = db.Column(db.String(80)) ## Check if user is admin or not (store in session var)
 
     def is_authenticated(self):
         return True
@@ -71,12 +72,13 @@ class Task(db.Model):
     def updateProgress(self,up):
         self.progress = up
         
-class InterestGroup(db.Model):
-    name = db.Column(db.String(80))
-    leader = db.Column(db.String(80))
+#class InterestGroup(db.Model):
+    #gid = db.Column(db.Integer, primary_key=True)
+    #name = db.Column(db.String(80))
+    #leader = db.Column(db.String(80))
 
-class Request(db.Model):
-    pass
+#class Request(db.Model):
+    #pass
 
-class Report(db.Model):
-    pass
+#class Report(db.Model):
+    #pass
