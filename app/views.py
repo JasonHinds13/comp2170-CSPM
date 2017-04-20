@@ -22,12 +22,12 @@ def createproj():
             
             proj = Project(name=name, description=desc, sig=sig)
             
-    #return render_template()
+    return render_template("createproject.html",form=form)
     
 @app.route("/createTask", methods=["GET","POST"])
-def createproj():
+def createtask():
     
-    form = ProjectForm()
+    form = TaskForm()
     
     if request.method == "POST":
         if form.validate_on_submit():
@@ -36,11 +36,16 @@ def createproj():
             
             task = Task(assignee=name, description=desc, progess=0)
             
-    #return render_template()
+    return render_template("createtask.html",form=form)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    pass
+    form = SignUpForm()
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            pass
+    return render_template("signup.html",form=form)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
