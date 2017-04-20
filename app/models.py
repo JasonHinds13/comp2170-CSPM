@@ -49,11 +49,17 @@ class Forum(db.Model):
     forumid = db.Column(db.Integer, primary_key=True)
     forumname = db.Column(db.String(80))
     
+    def postToForum(self, message):
+        message.forumid = self.forumid
+    
 class Project(db.Model):
     pid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     description = db.Column(db.String(255))
     sig = db.Column(db.String(80))
+    
+    def createTask(self, task):
+        task.pid = self.pid
 
 class Task(db.Model):
     tid = db.Column(db.Integer, primary_key=True)
@@ -62,5 +68,15 @@ class Task(db.Model):
     description = db.Column(db.String(255))
     progress = db.Column(db.Integer)
     
-    def updateProgress(up):
+    def updateProgress(self,up):
         self.progress = up
+        
+class InterestGroup(db.Model):
+    name = db.Column(db.String(80))
+    leader = db.Column(db.String(80))
+
+class Request(db.Model):
+    pass
+
+class Report(db.Model):
+    pass

@@ -1,8 +1,21 @@
-from app import app
+from app import app, db, login_manager
 from flask import render_template, request, redirect, url_for, jsonify, make_response, session, flash
+from flask_login import login_user, logout_user, current_user, login_required
 import requests
 from .forms import *
 from .models import *
+
+class DBController:
+    
+    def __init__(self, objec):
+        self.obj = objec
+        
+    def postToDatabase(self):
+        db.session.add_new(self.obj)
+        db.session.commit()
+        
+    def readFromDataabase(self):
+        pass
 
 @app.route('/')
 def home():
