@@ -9,7 +9,7 @@ class SignUpForm(FlaskForm):
     id_num = StringField('ID Number', validators=[InputRequired()])
     username = StringField('Username', validators=[InputRequired()])
     email = StringField("Email",[validators.Required("Please enter your email address."),
-      validators.Email("Please enter your email address.")])
+    choices=[('mobile', 'Mobile App Development'), ('m', 'Club Member')],validators=[InputRequired()])
     password = PasswordField('Password', [
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match')
@@ -30,13 +30,12 @@ class MessageForm(FlaskForm):
     
 class ProjectForm(FlaskForm):
     name = StringField('Project Name', validators=[InputRequired()])
-    description = TextAreaField('Description', validators=[InputRequired()])
-    sig =SelectField('Special interest group',
+    description = StringField('Description', validators=[InputRequired()])
+    sig = =SelectField('Special interest group',
     choices=[('mobile', 'Mobile App Development'), ('robot', 'Robotics'),('security', 'Cyber Security'),
     ('games', 'Game Development'),('web', 'Web Development')], validators=[InputRequired()])
 
 class TaskForm(FlaskForm):
     assignee = StringField('Assignee Name')
     projectname = StringField('Project Name', validators=[InputRequired()])
-    taskname = StringField('Task Name', validators=[InputRequired()])
     description = StringField('Description', validators=[InputRequired()])

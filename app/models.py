@@ -31,6 +31,7 @@ class SystemUser(db.Model):
 class Message(db.Model):
     messid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     forumid = db.Column(db.Integer)
+    title = db.Column(db.String(80))
     message = db.Column(db.String(255))
     author = db.Column(db.String(80))
     time = db.Column(db.DateTime)
@@ -66,6 +67,7 @@ class Project(db.Model):
 class Task(db.Model):
     tid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pid = db.Column(db.Integer)
+    taskname = db.Column(db.String(80))
     assignee = db.Column(db.String(80))
     description = db.Column(db.String(255))
     progress = db.Column(db.Integer)

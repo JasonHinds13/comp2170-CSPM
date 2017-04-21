@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 import requests
 from .forms import *
 from .models import *
+import time
 
 class DBController:
         
@@ -71,6 +72,25 @@ def viewtasks():
     tasks = dbcontroller.readFromDataabase(Task(), 'all')
     return render_template("viewtasks.html",tasks=tasks)
 
+###Needs fixing
+@app.route("/message", methods=["GET", "POST"])
+def register():
+    form = MessageForm()
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            title = form.title.data
+            message = form.message.data
+            author = session['name']
+            time = time.strftime('%c')
+            
+            user = SystemUser(userid=userid, first_name=first_name, last_name=last_name, username=username,
+            password=password, sig=sig, acctype=acctype)
+            
+            dbcontroller.postToDatabase(user)
+    return render_template("forum.html",form=form)
+    
+    
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = SignUpForm()
@@ -107,6 +127,7 @@ def login():
                 session['logged_in'] = True
                 session['account_type'] = user.acctype ## store account type to handle MVC stuff
                 session['sig'] = user.sig
+                session['name'] = user.first_name
                 flash('You were logged in')
                 return redirect(url_for('home'))
                 

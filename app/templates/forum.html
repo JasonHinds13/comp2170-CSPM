@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Forum</title>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="scripts/viewmessages.js"></script>
-        <script type="text/javascript" src="scripts/navbar.js"></script>
-    </head>
-    
-    <body>
-        <div id="navbar">
-        </div>
-        
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Forum</h2>
+{% for message in mesages %}
+<hr/>
+<div>
+    <strong>{{ message.title }}</strong> <br/>
+    {{ message.author }}
+    {{ message.time }}
+    {{ message.message }}<br/>
+</div>
+<hr/>
+<br/>
+{% endfor %}
+<hr>
+{% include 'message.html' %}
+{% endblock %}
+
         <h1>Messages: </h1>
         <div id="vmes">
             
