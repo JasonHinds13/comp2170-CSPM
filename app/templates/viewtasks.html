@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>View Tasks</title>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="scripts/viewtask.js"></script>
-        <script type="text/javascript" src="scripts/navbar.js"></script>
-    </head>
-    
-    <body>
-        <div id="navbar">
-            
-        </div>
-        
-        <h1>Tasks: </h1>
-        <div id="vtasks">
-            
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% for task in tasks %}
+
+<div>
+    {{ task.description }} <br/>
+    {{ task.progress }} <br/>
+</div>
+
+<br/>
+
+{% endfor %}
+
+{% endblock %}

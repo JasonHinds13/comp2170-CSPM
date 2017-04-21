@@ -77,9 +77,12 @@ class InterestGroup(db.Model):
     gid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80))
     leader = db.Column(db.String(80))
+    leaderid = db.Column(db.String(80))
 
 class Request(db.Model):
     rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid = db.Column(db.Integer)
+    userid = db.Column(db.String(80))
 
 class Report(db.Model):
     reid = db.Column(db.Integer, primary_key=True, autoincrement=True)

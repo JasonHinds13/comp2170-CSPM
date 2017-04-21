@@ -106,6 +106,7 @@ def login():
             if user is not None:
                 session['logged_in'] = True
                 session['account_type'] = user.acctype ## store account type to handle MVC stuff
+                session['sig'] = user.sig
                 flash('You were logged in')
                 return redirect(url_for('home'))
                 
@@ -120,7 +121,7 @@ def logout():
     
 @login_manager.user_loader
 def load_user(id):
-    return UserProfile.query.get(int(id))
+    return SystemUser.query.get(int(id))
 
 @app.errorhandler(404)
 def page_not_found(error):
