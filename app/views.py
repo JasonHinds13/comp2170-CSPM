@@ -8,7 +8,7 @@ from .models import *
 class DBController:
         
     def postToDatabase(self, obj):
-        db.session.add_new(obj)
+        db.session.add(obj)
         db.session.commit()
         
     def readFromDataabase(self, obj, stat):
@@ -77,6 +77,7 @@ def register():
     
     if request.method == "POST":
         if form.validate_on_submit():
+            userid = form.id_num.data
             first_name = form.first_name.data
             last_name = form.last_name.data
             username = form.username.data
@@ -84,7 +85,7 @@ def register():
             sig = form.special_interest_group.data
             acctype = form.acctype.data
             
-            user = SystemUser(first_name=first_name, last_name=last_name, username=username,
+            user = SystemUser(userid=userid, first_name=first_name, last_name=last_name, username=username,
             password=password, sig=sig, acctype=acctype)
             
             dbcontroller.postToDatabase(user)
@@ -101,7 +102,6 @@ def login():
             
             userObj = SystemUser.query.filter_by(username=username, password=password)
             user = dbcontroller.readFromDataabase(userObj, 'first')
-            #user = SystemUser(acctype='admin') ###Just for testing purposes
             
             if user is not None:
                 session['logged_in'] = True
@@ -112,7 +112,7 @@ def login():
     return render_template('login.html', form=form)
     
 @app.route('/logout')
-@login_required
+#@login_required
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')

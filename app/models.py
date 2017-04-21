@@ -2,7 +2,7 @@ from . import db
 from datetime import datetime
 
 class SystemUser(db.Model):
-    userid = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.String(80), primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     username = db.Column(db.String(80))
@@ -29,7 +29,7 @@ class SystemUser(db.Model):
         return '<User %r>' % (self.username)
 
 class Message(db.Model):
-    messid = db.Column(db.Integer, primary_key=True)
+    messid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     forumid = db.Column(db.Integer)
     message = db.Column(db.String(255))
     author = db.Column(db.String(80))
@@ -48,14 +48,14 @@ class Message(db.Model):
         return self.time
         
 class Forum(db.Model):
-    forumid = db.Column(db.Integer, primary_key=True)
+    forumid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     forumname = db.Column(db.String(80))
     
     def postToForum(self, message):
         message.forumid = self.forumid
     
 class Project(db.Model):
-    pid = db.Column(db.Integer, primary_key=True)
+    pid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80))
     description = db.Column(db.String(255))
     sig = db.Column(db.String(80))
@@ -64,7 +64,7 @@ class Project(db.Model):
         task.pid = self.pid
 
 class Task(db.Model):
-    tid = db.Column(db.Integer, primary_key=True)
+    tid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pid = db.Column(db.Integer)
     assignee = db.Column(db.String(80))
     description = db.Column(db.String(255))
@@ -74,12 +74,12 @@ class Task(db.Model):
         self.progress = up
         
 class InterestGroup(db.Model):
-    gid = db.Column(db.Integer, primary_key=True)
+    gid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80))
     leader = db.Column(db.String(80))
 
 class Request(db.Model):
-    rid = db.Column(db.Integer, primary_key=True)
+    rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 class Report(db.Model):
-    reid = db.Column(db.Integer, primary_key=True)
+    reid = db.Column(db.Integer, primary_key=True, autoincrement=True)
