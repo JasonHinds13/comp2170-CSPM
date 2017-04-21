@@ -16,6 +16,7 @@
               {% if session.account_type == "leader" %}
                 <li><a href="{{ url_for('createproject') }}">Create Project</a></li>
                 <li><a href="{{ url_for('createtask') }}">Create Task</a></li>
+                <li><a href="{{ url_for('viewrequests') }}">View Requests</a></li>
               {% endif %}
               <li><a href="{{ url_for('viewproj') }}">View Projects</a></li>
               <li><a href="{{ url_for('viewtasks') }}">View Tasks</a></li>

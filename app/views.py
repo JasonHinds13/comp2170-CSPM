@@ -17,6 +17,10 @@ class DBController:
             return obj.first()
         elif stat == 'all':
             return obj.query.all()
+            
+    def deleteFromDatabase(self, obj):
+        db.session.delete(obj)
+        db.session.commit()
     
 dbcontroller = DBController()
 
@@ -40,6 +44,7 @@ def createproject():
             proj = Project(name=name, description=desc, sig=sig, url=url)
             
             dbcontroller.postToDatabase(proj)
+            return redirect(url_for('viewproj'))
             
     return render_template("createproject.html",form=form)
     
@@ -53,15 +58,41 @@ def createtask():
             name = form.assignee.data
             desc = form.description.data
             project = form.projectname.data
+            tname = form.taskname.data
             
             pObj = Project.query.filter_by(name=project)
             proj = dbcontroller.readFromDataabase(pObj, 'first')
             
-            task = Task(pid=proj.pid, assignee=name, description=desc, progess=0)
+            task = Task(pid=proj.pid, assignee=name, description=desc, progress=0, sig=proj.sig, taskname=tname)
             
             dbcontroller.postToDatabase(task)
+            return redirect(url_for('viewtasks'))
             
     return render_template("createtask.html",form=form)
+    
+@app.route("/requests", methods=["POST"])
+def requestsT():
+    if request.method == "POST":
+        form = RequestForm()
+        
+        if form.validate_on_submit():
+            sig = form.sig.data
+            tid = form.tid.data
+            taskname = form.taskname.data
+            uname = form.uname.data
+            uid = session['userid']
+            
+            req = Request(tid=tid,sig=sig,tname=taskname,uname=uname,userid=uid)
+            
+            dbcontroller.postToDatabase(req)
+            
+            flash('You request has been submitted')
+            return redirect(url_for('home'))
+            
+@app.route('/viewrequests', methods=["GET"])
+def viewrequests():
+    requests = dbcontroller.readFromDataabase(Request(), 'all')
+    return render_template("viewrequests.html", requests=requests)
 
 @app.route("/viewProjects", methods=["GET"])
 def viewproj():
@@ -71,7 +102,7 @@ def viewproj():
 @app.route("/viewTasks", methods=["GET"])
 def viewtasks():
     tasks = dbcontroller.readFromDataabase(Task(), 'all')
-    return render_template("viewtasks.html",tasks=tasks)
+    return render_template("viewtasks.html",tasks=tasks, form=RequestForm())
 
 
 @app.route("/message", methods=["GET", "POST"])
@@ -85,7 +116,8 @@ def forum():
             author = session['name']
             mtime = time.strftime('%c')
             
-            mObj = Message(forumid=1,title=title,message=message,author=author,time=mtime)
+            mObj = Message(forumid=1,title=title,message=message,author=author)
+            mObj.noteTime()
             
             dbcontroller.postToDatabase(mObj)
             
@@ -132,8 +164,8 @@ def login():
                 session['logged_in'] = True
                 session['account_type'] = user.acctype ## store account type to handle MVC stuff
                 session['sig'] = user.sig
-                session['name'] = user.first_name
-                session['id'] = user.userid
+                session['name'] = user.first_name + " " + user.last_name
+                session['userid'] = user.userid
                 flash('You were logged in')
                 return redirect(url_for('home'))
                 

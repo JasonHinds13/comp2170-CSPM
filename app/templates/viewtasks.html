@@ -4,15 +4,57 @@
 <h2>Tasks</h2>
 {% for task in tasks %}
 
+<hr/>
+
 <div>
     {{ task.taskname }} <br/>
     {{ task.description }} <br/>
     {{ task.progress }} <br/>
     {{ task.assignee }} <br/>
+    
+    <button onclick="getForm('{{ task.taskname }}')">Request Task</button><br>
+    
+    <div id="{{ task.taskname }}" style="display: none" method="post" class="form-login">
+        <form action="{{ url_for('requestsT') }}" method="post">
+          {{ form.csrf_token }}
+          <div class="form-group" style="display:none">
+            {{ form.sig.label }}
+            {{ form.sig(class='form-control', value=task.sig) }}
+          </div>
+          <div class="form-group" style="display:none">
+            {{ form.tid.label }}
+            {{ form.tid(class='form-control', value=task.tid) }}
+          </div>
+          <div class="form-group" style="display:none">
+            {{ form.taskname.label }}
+            {{ form.taskname(class='form-control', value=task.taskname) }}
+          </div>
+          <div class="form-group">
+            {{ form.uname.label }}
+            {{ form.uname(class='form-control', placeholder="Your Name") }}
+          </div>
+          <button type="submit" name="submit" class="btn btn-primary btn-block">Request</button>
+        </form>
+    </div>
 </div>
-
 <br/>
 
+<hr/>
+
 {% endfor %}
+
+<script type="text/javascript">
+    
+    function getForm(name){
+        var req = document.getElementById(name);
+        
+        if(req.style.display == "none"){
+            req.style.display = "block";
+        }
+        else{
+            req.style.display = "none";
+        }
+    }
+</script>
 
 {% endblock %}

@@ -39,5 +39,14 @@ class ProjectForm(FlaskForm):
 class TaskForm(FlaskForm):
     assignee = StringField('Assignee Name')
     projectname = StringField('Project Name', validators=[InputRequired()])
+    sig =SelectField('Special interest group',
+    choices=[('mobile', 'Mobile App Development'), ('robot', 'Robotics'),('security', 'Cyber Security'),
+    ('games', 'Game Development'),('web', 'Web Development')], validators=[InputRequired()])
     taskname = StringField('Task Name', validators=[InputRequired()])
     description = StringField('Description', validators=[InputRequired()])
+    
+class RequestForm(FlaskForm):
+    tid = StringField('Task ID',validators=[InputRequired()])
+    sig =StringField('Special Interest Group', validators=[InputRequired()])
+    taskname = StringField('Task Name', validators=[InputRequired()])
+    uname = StringField('Your Name', validators=[InputRequired()])

@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block main %}
-{% for task in tasks %}
-<hr/>
-<div style="width:50%;float:left">
-    <strong>{{ project.name }}</strong> <br/>
-    {{ project.description }} <br/>
-     <form action="" method="post"></form>
-</div>
-<hr/>
-<br/>
+{% for req in requests %}
+{% if req.sig == session.sig %}
+    <hr/>
+    <div>
+        <strong>{{ req.tname}}</strong></strong> <br/>
+        {{ req.uname }} <br/>
+        <button onclick="getForm('{{ task.taskname }}')">Approve</button>
+        <button onclick="getForm('{{ task.taskname }}')">Deny</button>
+    </div>
+    <hr/>
+    <br/>
+{% endif %}
 {% endfor %}
 
 {% endblock %}
