@@ -7,6 +7,10 @@
     <form action="{{ url_for('register') }}" method="post">
       {{ form.csrf_token }}
       <div class="form-group">
+        {{ form.id_num.label }}
+        {{ form.id_num(class='form-control', placeholder="ID Number") }}
+      </div>
+      <div class="form-group">
         {{ form.first_name.label }}
         {{ form.first_name(class='form-control', placeholder="First Name") }}
       </div>
@@ -17,6 +21,10 @@
       <div class="form-group">
         {{ form.username.label }}
         {{ form.username(class='form-control', placeholder="Username") }}
+      </div>
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class='form-control', placeholder="Email") }}
       </div>
       <div class="form-group">
         {{ form.acctype.label }}
@@ -30,31 +38,11 @@
         {{ form.password.label }}
         {{ form.password(class='form-control', placeholder="Password") }}
       </div>
+      <div class="form-group">
+        {{ form.confirm.label }}
+        {{ form.confirm(class='form-control', placeholder="Repeat Password") }}
+      </div>
       <button type="submit" name="submit" class="btn btn-primary btn-block">Register</button>
     </form>
   </div>
 {% endblock %}
-
-        
-            Account Type: 
-            <select name="acctype">
-        		<option value ="leader">Project Leader</option>
-        		<option value ="member">Club Member</option>
-        	</select> <br />
-        	First name: <input type = "text" name ="fname" required/> <br/>
-        	Last name: <input type = "text" name ="lname" required/> <br/>
-        	ID number: <input type = "text" name ="id_num" required/> <br/>
-        	Email: <input type="text" name ="email" required> <br/>
-        	Password: <input type ="password" name="password" required/> <br/>
-        	Special Interest Group: 
-        	<select name="sig">
-        		<option value ="web">Web Development</option>
-        		<option value ="robotics">Robotics</option>
-        		<option value ="mobile">Mobile App Development</option>
-        		<option value ="security">Security</option>
-        	</select><br />
-        	<input type="submit" name="signbtn" value="Sign Up"/>
-        </form>
-        </div>
-    </body>
-</html>
