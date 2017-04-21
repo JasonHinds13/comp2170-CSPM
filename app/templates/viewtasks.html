@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block main %}
-
+<h2>Tasks</h2>
 {% for task in tasks %}
 
 <div>
+    {{ task.taskname }} <br/>
     {{ task.description }} <br/>
     {{ task.progress }} <br/>
+    {{ task.assignee }} <br/>
 </div>
 
 <br/>

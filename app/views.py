@@ -26,7 +26,7 @@ def home():
     return render_template('home.html')
     
 @app.route("/createProject", methods=["GET","POST"])
-def createproj():
+def createproject():
     
     form = ProjectForm()
     
@@ -35,8 +35,9 @@ def createproj():
             name = form.name.data
             desc = form.description.data
             sig = form.sig.data
+            url = form.url.data
             
-            proj = Project(name=name, description=desc, sig=sig)
+            proj = Project(name=name, description=desc, sig=sig, url=url)
             
             dbcontroller.postToDatabase(proj)
             
@@ -72,9 +73,9 @@ def viewtasks():
     tasks = dbcontroller.readFromDataabase(Task(), 'all')
     return render_template("viewtasks.html",tasks=tasks)
 
-###Needs fixing
+
 @app.route("/message", methods=["GET", "POST"])
-def register():
+def forum():
     form = MessageForm()
     
     if request.method == "POST":
@@ -82,13 +83,15 @@ def register():
             title = form.title.data
             message = form.message.data
             author = session['name']
-            time = time.strftime('%c')
+            mtime = time.strftime('%c')
             
-            user = SystemUser(userid=userid, first_name=first_name, last_name=last_name, username=username,
-            password=password, sig=sig, acctype=acctype)
+            mObj = Message(forumid=1,title=title,message=message,author=author,time=mtime)
             
-            dbcontroller.postToDatabase(user)
-    return render_template("forum.html",form=form)
+            dbcontroller.postToDatabase(mObj)
+            
+    messages = dbcontroller.readFromDataabase(Message(), 'all')
+            
+    return render_template("forum.html",form=form, messages = messages)
     
     
 @app.route("/register", methods=["GET", "POST"])
@@ -109,6 +112,8 @@ def register():
             password=password, sig=sig, acctype=acctype)
             
             dbcontroller.postToDatabase(user)
+            flash('You were registered')
+            return redirect(url_for('login'))
             
     return render_template("signup.html",form=form)
 
@@ -128,6 +133,7 @@ def login():
                 session['account_type'] = user.acctype ## store account type to handle MVC stuff
                 session['sig'] = user.sig
                 session['name'] = user.first_name
+                session['id'] = user.userid
                 flash('You were logged in')
                 return redirect(url_for('home'))
                 

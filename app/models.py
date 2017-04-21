@@ -54,23 +54,37 @@ class Forum(db.Model):
     
     def postToForum(self, message):
         message.forumid = self.forumid
+ 
+class forummessages(db.Model):
+    forumid = db.Column(db.Integer, primary_key=True)
+    messid = db.Column(db.Integer, primary_key=True)
     
 class Project(db.Model):
     pid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80))
     description = db.Column(db.String(255))
     sig = db.Column(db.String(80))
+    url = db.Column(db.String(255))
     
     def createTask(self, task):
         task.pid = self.pid
 
+class projectparticipants(db.Model):
+    pid = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, primary_key=True)
+
+class taskparticipants(db.Model):
+    tid = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer, primary_key=True)
+
 class Task(db.Model):
     tid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pid = db.Column(db.Integer)
+    sig = db.Column(db.String(80))
     taskname = db.Column(db.String(80))
     assignee = db.Column(db.String(80))
     description = db.Column(db.String(255))
-    progress = db.Column(db.Integer)
+    progress = db.Column(db.String(80))
     
     def updateProgress(self,up):
         self.progress = up
@@ -83,8 +97,11 @@ class InterestGroup(db.Model):
 
 class Request(db.Model):
     rid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sig = db.Column(db.String(80))
     tid = db.Column(db.Integer)
+    tname = db.Column(db.String(80))
     userid = db.Column(db.String(80))
+    uname = db.Column(db.String(80))
 
 class Report(db.Model):
     reid = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -34,7 +34,8 @@ class ProjectForm(FlaskForm):
     sig =SelectField('Special interest group',
     choices=[('mobile', 'Mobile App Development'), ('robot', 'Robotics'),('security', 'Cyber Security'),
     ('games', 'Game Development'),('web', 'Web Development')], validators=[InputRequired()])
-
+    url = StringField('Github URL')
+    
 class TaskForm(FlaskForm):
     assignee = StringField('Assignee Name')
     projectname = StringField('Project Name', validators=[InputRequired()])

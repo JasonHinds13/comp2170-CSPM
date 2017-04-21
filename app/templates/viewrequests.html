@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for task in tasks %}
+<hr/>
+<div style="width:50%;float:left">
+    <strong>{{ project.name }}</strong> <br/>
+    {{ project.description }} <br/>
+     <form action="" method="post"></form>
+</div>
+<hr/>
+<br/>
+{% endfor %}
+
+{% endblock %}

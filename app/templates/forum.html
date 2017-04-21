@@ -2,7 +2,7 @@
 
 {% block main %}
 <h2>Forum</h2>
-{% for message in mesages %}
+{% for message in messages %}
 <hr/>
 <div>
     <strong>{{ message.title }}</strong> <br/>
@@ -16,19 +16,3 @@
 <hr>
 {% include 'message.html' %}
 {% endblock %}
-
-        <h1>Messages: </h1>
-        <div id="vmes">
-            
-        </div>
-        
-        <hr />
-        
-        <form action="scripts/main.php" method="post">
-            Author: <input type="text" name ="m_author" required/> <br />
-            Title: <input type="text" name ="m_title" required/> <br />
-	        Message: <input type ="text" name="m_message" required/> <br />
-	        <input type="submit" value="Post Message"/>
-        </form>
-    </body>
-</html>
