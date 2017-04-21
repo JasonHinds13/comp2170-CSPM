@@ -11,8 +11,11 @@ class DBController:
         db.session.add_new(obj)
         db.session.commit()
         
-    def readFromDataabase(self):
-        pass
+    def readFromDataabase(self, obj, stat):
+        if stat == 'first':
+            return obj.first()
+        elif stat == 'all':
+            return obj.query.all()
     
 dbcontroller = DBController()
 
@@ -54,13 +57,34 @@ def createtask():
             
     return render_template("createtask.html",form=form)
 
+@app.route("/viewProjects", methods=["GET"])
+def viewproj():
+    projects = dbcontroller.readFromDataabase(Project(), 'all')
+    return render_template("viewprojects.html", projects=projects)
+
+@app.route("/viewTasks", methods=["GET"])
+def viewtasks():
+    tasks = dbcontroller.readFromDataabase(Task(), 'all')
+    return render_template("viewtasks.html",tasks=tasks)
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = SignUpForm()
     
     if request.method == "POST":
         if form.validate_on_submit():
-            pass
+            first_name = form.first_name.data
+            last_name = form.last_name.data
+            username = form.username.data
+            password = form.password.data
+            sig = form.special_interest_group.data
+            acctype = form.acctype.data
+            
+            user = SystemUser(first_name=first_name, last_name=last_name, username=username,
+            password=password, sig=sig, acctype=acctype)
+            
+            dbcontroller.postToDatabase(user)
+            
     return render_template("signup.html",form=form)
 
 @app.route("/login", methods=["GET","POST"])
@@ -71,19 +95,28 @@ def login():
             username = form.username.data
             password = form.password.data
             
+            userObj = SystemUser.query.filter_by(username=username, password=password)
+            user = dbcontroller.readFromDataabase(userObj, 'first')
+            #user = SystemUser(acctype='admin') ###Just for testing purposes
             
-            session['logged_in'] = True
-            session['account_type'] = '' ## store account type to handle MVC stuff
-            
-            flash('You were logged in')
-            return redirect(url_for('home'))
+            if user is not None:
+                session['logged_in'] = True
+                session['account_type'] = user.acctype ## store account type to handle MVC stuff
+                flash('You were logged in')
+                return redirect(url_for('home'))
+                
     return render_template('login.html', form=form)
     
 @app.route('/logout')
+@login_required
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
     return redirect(url_for('home'))
+    
+@login_manager.user_loader
+def load_user(id):
+    return UserProfile.query.get(int(id))
 
 @app.errorhandler(404)
 def page_not_found(error):

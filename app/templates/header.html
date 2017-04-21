@@ -7,18 +7,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Hospital Inc.</a>
+          <a class="navbar-brand" href="#">UWI Computing Society</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
-            <li><a href="{{ url_for('createproj') }}">Create Project</a></li>
-            <li><a href="{{ url_for('createtask') }}">Create Task</a></li>
+            {% if session.logged_in %}
+              <li><a href="{{ url_for('createproj') }}">Create Project</a></li>
+              <li><a href="{{ url_for('createtask') }}">Create Task</a></li>
+              <li><a href="{{ url_for('viewproj') }}">View Projects</a></li>
+              <li><a href="{{ url_for('viewtasks') }}">View Tasks</a></li>
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if not session.logged_in %}
               <li><a href="{{ url_for('login') }}">Login</a></li>
+              <li><a href="{{ url_for('register') }}">Register</a></li>
             {% else %}
               <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% endif %}

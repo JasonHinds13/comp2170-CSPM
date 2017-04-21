@@ -1,13 +1,14 @@
 from . import db
 from datetime import datetime
 
-class SytemUser(db.Model):
+class SystemUser(db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
-    utype = db.Column(db.String(80)) ## Check if user is admin or not (store in session var)
+    sig = db.Column(db.String(80))
+    acctype = db.Column(db.String(80)) ## Check if user is leader or not (store in session var)
 
     def is_authenticated(self):
         return True
