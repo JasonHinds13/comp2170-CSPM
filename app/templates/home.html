@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1 class="page-header"> Project Management System</h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-success">
+      <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+  <div class ="signbenefits">
+			<h3> Join the community and : </h3>
+			<ul>
+				<li>solve problems with your fellow club members</li>
+				<li>Only do tasks that you're interested in</li>
+				<li>get real world coding experience and feedback from your clients</li>
+			</ul>
+		</div>
+{% endblock %}

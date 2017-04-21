@@ -6,16 +6,15 @@ from .forms import *
 from .models import *
 
 class DBController:
-    
-    def __init__(self, objec):
-        self.obj = objec
         
-    def postToDatabase(self):
-        db.session.add_new(self.obj)
+    def postToDatabase(self, obj):
+        db.session.add_new(obj)
         db.session.commit()
         
     def readFromDataabase(self):
         pass
+    
+dbcontroller = DBController()
 
 @app.route('/')
 def home():
@@ -35,6 +34,8 @@ def createproj():
             
             proj = Project(name=name, description=desc, sig=sig)
             
+            dbcontroller.postToDatabase(proj)
+            
     return render_template("createproject.html",form=form)
     
 @app.route("/createTask", methods=["GET","POST"])
@@ -48,6 +49,8 @@ def createtask():
             desc = form.description.data
             
             task = Task(assignee=name, description=desc, progess=0)
+            
+            dbcontroller.postToDatabase(task)
             
     return render_template("createtask.html",form=form)
 
@@ -66,7 +69,9 @@ def login():
     if request.method == 'POST':
         if form.validate_on_submit():
             username = form.username.data
-             
+            password = form.password.data
+            
+            
             session['logged_in'] = True
             
             flash('You were logged in')
