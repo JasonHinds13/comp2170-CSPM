@@ -103,7 +103,32 @@ def viewproj():
 def viewtasks():
     tasks = dbcontroller.readFromDataabase(Task(), 'all')
     return render_template("viewtasks.html",tasks=tasks, form=RequestForm())
+    
+@app.route('/accept/<int:rid>',methods=["POST"])
+def accept(rid):
+    req = dbcontroller.readFromDataabase(Request.query.filter_by(rid=rid), 'first')
+    
+    t = taskparticipants(userid=req.userid, tid=req.tid)
+    
+    task = dbcontroller.readFromDataabase(Task.query.filter_by(tid=t.tid), 'first')
+    proj = dbcontroller.readFromDataabase(Project.query.filter_by(pid=task.pid), 'first')
+    
+    p = projectparticipants(userid=req.userid, pid=proj.pid)
+    
+    dbcontroller.postToDatabase(t)
+    dbcontroller.postToDatabase(p)
+    
+    dbcontroller.deleteFromDatabase(req)
 
+    flash('Request Accepted')
+    return redirect(url_for('home'))
+
+@app.route('/reject/<int:rid>',methods=["POST"])
+def reject(rid):
+    req = dbcontroller.readFromDataabase(Request.query.filter_by(rid=rid), 'first')
+    dbcontroller.deleteFromDatabase(req)
+    flash('Request Rejected')
+    return redirect(url_for('home'))
 
 @app.route("/message", methods=["GET", "POST"])
 def forum():

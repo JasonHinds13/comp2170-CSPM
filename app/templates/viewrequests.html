@@ -1,18 +1,33 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
 {% for req in requests %}
-{% if req.sig == session.sig %}
+{% if session.sig in req.sig.lower() %}
     <hr/>
     <div>
         <strong>{{ req.tname}}</strong></strong> <br/>
         {{ req.uname }} <br/>
-        <button onclick="getForm('{{ task.taskname }}')">Approve</button>
-        <button onclick="getForm('{{ task.taskname }}')">Deny</button>
+        <button onclick="accept('{{ req.rid }}')">Approve</button>
+        <button onclick="reject('{{ req.rid }}')">Deny</button>
     </div>
     <hr/>
     <br/>
 {% endif %}
 {% endfor %}
+
+<script type="text/javascript">
+    function accept(rid){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "POST", '/accept/'+rid, false );
+        xmlHttp.send( null );
+    }
+    
+    function reject(rid){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "POST", '/reject/'+rid, false );
+        xmlHttp.send( null );
+    }
+</script>
 
 {% endblock %}
