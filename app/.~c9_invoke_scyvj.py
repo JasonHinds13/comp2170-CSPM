@@ -79,7 +79,7 @@ def requestsT():
             sig = form.sig.data
             tid = form.tid.data
             taskname = form.taskname.data
-            uname = form.uname.data
+            dbcontroller
             uid = session['userid']
             
             req = Request(tid=tid,sig=sig,tname=taskname,uname=uname,userid=uid)

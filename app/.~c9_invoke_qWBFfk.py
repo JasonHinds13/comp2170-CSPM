@@ -20,7 +20,7 @@ class DBController:
             
     def deleteFromDatabase(self, obj):
         db.session.delete(obj)
-        db.session.commit()
+        db.sess
     
 dbcontroller = DBController()
 

@@ -59,7 +59,7 @@ def createtask():
             desc = form.description.data
             project = form.projectname.data
             tname = form.taskname.data
-            
+            task = Task(pid=proj.pid, assignee=name, description=desc, progress=, sig=proj.sig, taskname=tname)
             pObj = Project.query.filter_by(name=project)
             proj = dbcontroller.readFromDataabase(pObj, 'first')
             

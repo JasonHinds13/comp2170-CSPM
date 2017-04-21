@@ -109,7 +109,7 @@ def accept(rid):
     
     if request.method == "POST":
         req = dbcontroller.readFromDataabase(Request.query.filter_by(rid=rid), 'first')
-    
+    p = readFromDataabase
         t = taskparticipants(userid=req.userid, tid=req.tid)
         
         task = dbcontroller.readFromDataabase(Task.query.filter_by(tid=t.tid), 'first')

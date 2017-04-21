@@ -75,7 +75,7 @@ def requestsT():
     if request.method == "POST":
         form = RequestForm()
         
-        if form.validate_on_submit():
+            assi
             sig = form.sig.data
             tid = form.tid.data
             taskname = form.taskname.data

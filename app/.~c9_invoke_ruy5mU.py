@@ -68,7 +68,7 @@ def createtask():
             dbcontroller.postToDatabase(task)
             return redirect(url_for('viewtasks'))
             
-    return render_template("createtask.html",form=form)
+    if request.methods
     
 @app.route("/requests", methods=["POST"])
 def requestsT():

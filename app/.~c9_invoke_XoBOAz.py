@@ -106,7 +106,7 @@ def viewtasks():
     
 @app.route('/accept/<int:rid>',methods=["POST"])
 def accept(rid):
-    
+    pass
     if request.method == "POST":
         req = dbcontroller.readFromDataabase(Request.query.filter_by(rid=rid), 'first')
     

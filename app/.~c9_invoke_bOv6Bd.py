@@ -81,7 +81,7 @@ def requestsT():
             taskname = form.taskname.data
             uname = form.uname.data
             uid = session['userid']
-            
+            flash('You Request h')
             req = Request(tid=tid,sig=sig,tname=taskname,uname=uname,userid=uid)
             
             dbcontroller.postToDatabase(req)

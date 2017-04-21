@@ -113,7 +113,7 @@ def accept(rid):
         t = taskparticipants(userid=req.userid, tid=req.tid)
         
         task = dbcontroller.readFromDataabase(Task.query.filter_by(tid=t.tid), 'first')
-        proj = dbcontroller.readFromDataabase(Project.query.filter_by(pid=task.pid), 'first')
+    req = dbcontroller.readFromDataabase(Request.query.filter_by(rid=rid), 'first')
         
         p = projectparticipants(userid=req.userid, pid=proj.pid)
         

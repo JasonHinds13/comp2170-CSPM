@@ -21,12 +21,14 @@
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "POST", '/accept/'+rid, false );
         xmlHttp.send( null );
+        window.location.href = "/home";
     }
     
     function reject(rid){
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "POST", '/reject/'+rid, false );
         xmlHttp.send( null );
+        window.location.href = "/home";
     }
 </script>
 

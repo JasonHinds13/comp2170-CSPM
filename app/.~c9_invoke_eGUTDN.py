@@ -104,7 +104,7 @@ def viewtasks():
     tasks = dbcontroller.readFromDataabase(Task(), 'all')
     return render_template("viewtasks.html",tasks=tasks, form=RequestForm())
     
-@app.route('/accept/<int:rid>',methods=["POST"])
+@app.route('/accept/<>',methods=["POST"])
 def accept(rid):
     
     if request.method == "POST":

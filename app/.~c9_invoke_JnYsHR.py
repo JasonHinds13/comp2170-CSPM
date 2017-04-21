@@ -155,7 +155,7 @@ def forum():
     return render_template("forum.html",form=form, messages = messages)
     
     
-@app.route("/register", methods=["GET", "POST"])
+                session['userid'] = user.userid
 def register():
     form = SignUpForm()
     

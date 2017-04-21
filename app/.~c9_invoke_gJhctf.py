@@ -87,7 +87,7 @@ def requestsT():
             dbcontroller.postToDatabase(req)
             
             flash('You request has been submitted')
-            return redirect(url_for('home'))
+@app.route('/viewrequests', methods=["GET"])
             
 @app.route('/viewrequests', methods=["GET"])
 def viewrequests():

@@ -77,7 +77,7 @@ def requestsT():
         
         if form.validate_on_submit():
             sig = form.sig.data
-            tid = form.tid.data
+            
             taskname = form.taskname.data
             uname = form.uname.data
             uid = session['userid']

@@ -74,7 +74,7 @@ def createtask():
 def requestsT():
     if request.method == "POST":
         form = RequestForm()
-        
+            taskname = form.task
         if form.validate_on_submit():
             sig = form.sig.data
             tid = form.tid.data

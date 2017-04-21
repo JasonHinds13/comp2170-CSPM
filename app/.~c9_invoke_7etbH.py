@@ -66,7 +66,7 @@ def createtask():
             task = Task(pid=proj.pid, assignee=name, description=desc, progress=0, sig=proj.sig, taskname=tname)
             
             dbcontroller.postToDatabase(task)
-            return redirect(url_for('viewtasks'))
+@app.route()
             
     return render_template("createtask.html",form=form)
     

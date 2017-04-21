@@ -54,7 +54,7 @@ def createtask():
     form = TaskForm()
     
     if request.method == "POST":
-        if form.validate_on_submit():
+            tname 
             name = form.assignee.data
             desc = form.description.data
             project = form.projectname.data
