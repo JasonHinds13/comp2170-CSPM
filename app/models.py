@@ -72,13 +72,13 @@ class Task(db.Model):
     def updateProgress(self,up):
         self.progress = up
         
-#class InterestGroup(db.Model):
-    #gid = db.Column(db.Integer, primary_key=True)
-    #name = db.Column(db.String(80))
-    #leader = db.Column(db.String(80))
+class InterestGroup(db.Model):
+    gid = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    leader = db.Column(db.String(80))
 
-#class Request(db.Model):
-    #pass
+class Request(db.Model):
+    rid = db.Column(db.Integer, primary_key=True)
 
-#class Report(db.Model):
-    #pass
+class Report(db.Model):
+    reid = db.Column(db.Integer, primary_key=True)

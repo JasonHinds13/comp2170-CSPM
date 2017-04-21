@@ -73,6 +73,7 @@ def login():
             
             
             session['logged_in'] = True
+            session['account_type'] = '' ## store account type to handle MVC stuff
             
             flash('You were logged in')
             return redirect(url_for('home'))

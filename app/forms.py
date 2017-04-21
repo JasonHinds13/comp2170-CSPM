@@ -14,7 +14,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
 
 class MessageForm(FlaskForm):
-    #title = StringField('Title', validators=[InputRequired()])
+    title = StringField('Title', validators=[InputRequired()])
     message = TextAreaField('Message', validators=[InputRequired()])
     
 class ProjectForm(FlaskForm):
